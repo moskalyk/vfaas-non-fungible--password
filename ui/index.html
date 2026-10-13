@@ -5,6 +5,61 @@
 </div>
 </body>
 <script>
+    const enc = new TextEncoder()
+    const dec = new TextDecoder()
+
+    function decrypt(msg, freqs, scalar = 1, timeout=1000) {
+        let msgArr = []
+        
+        let g = 0;
+        let f = 0;
+
+        while(g<timeout){
+
+            for(let w = 0; w < freqs.length; w++){
+                for(let i = 0; i < scalar*freqs[w].length; i++){
+                    if(i%freqs.length){
+                        for(let j = 0; j < scalar*freqs[i%freqs.length][i]; j++){
+                            f++
+                        }
+                    } else {
+                        for(let j = 0; j < scalar*freqs[w].length; j++){
+                            f++
+                        }
+                    }
+                }
+            }
+            g++
+            msgArr.push(msg[f++])
+        }
+
+        return dec.decode(new Uint8Array(msgArr))
+    }
+
+    function encrypt(msg, freqs, scalar = 1) {
+        let encrypted = []
+        const rawEnc = enc.encode(msg)
+        
+        for(let k = 0; k < rawEnc.length; k++){
+            for(let w = 0; w < freqs.length; w++){
+                for(let i = 0; i < scalar*freqs[w].length; i++){
+                    if(i%freqs.length){
+                        for(let j = 0; j < scalar*freqs[i%freqs.length][i]; j++){
+                                encrypted.push(Math.floor(Math.random()*128))
+                        }
+                    }else {
+                        for(let j = 0; j < scalar*freqs[w].length; j++){
+                                encrypted.push(Math.floor(Math.random()*128))
+                        }
+                    }
+                }
+            }
+            encrypted.push(rawEnc[k])
+        }
+        
+        return encrypted
+    }
+
     // Box width
     var bw = 400;
     // Box height
@@ -37,6 +92,7 @@
         const x = event.clientX - rect.left
         const y = event.clientY - rect.top
         console.log("x: " + x + " y: " + y)
+        console.log('matchy', JSON.stringify([116,101,115,116]) == JSON.stringify(encrypt('test',[220,251])))
     }
 
     canvas.addEventListener('mousedown', function(e) {
