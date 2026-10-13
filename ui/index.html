@@ -1,0 +1,46 @@
+<html>
+<body>
+    <div>
+    <canvas id="canvas" width="420px" height="420px"></canvas>
+</div>
+</body>
+<script>
+    // Box width
+    var bw = 400;
+    // Box height
+    var bh = 400;
+    // Padding
+    var p = 10;
+    
+    const canvas = document.querySelector('canvas')
+
+
+    var context = canvas.getContext("2d");
+    function drawBoard(){
+        for (var x = 0; x <= bw; x += 40) {
+            context.moveTo(0.5 + x + p, p);
+            context.lineTo(0.5 + x + p, bh + p);
+        }
+
+        for (var x = 0; x <= bh; x += 40) {
+            context.moveTo(p, 0.5 + x + p);
+            context.lineTo(bw + p, 0.5 + x + p);
+        }
+        context.strokeStyle = "black";
+        context.stroke();
+    }
+
+    drawBoard();
+
+    function getCursorPosition(canvas, event) {
+        const rect = canvas.getBoundingClientRect()
+        const x = event.clientX - rect.left
+        const y = event.clientY - rect.top
+        console.log("x: " + x + " y: " + y)
+    }
+
+    canvas.addEventListener('mousedown', function(e) {
+        getCursorPosition(canvas, e)
+    })
+</script>
+</html>
