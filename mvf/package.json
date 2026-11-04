@@ -1,0 +1,15 @@
+{
+  "name": "mvf",
+  "version": "0.1.0",
+  "description": "minimal vfaas pulling in functions (no updates)",
+  "license": "ISC",
+  "author": "nero",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "formidable": "^3.5.4"
+  }
+}
