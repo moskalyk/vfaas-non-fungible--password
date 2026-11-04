@@ -8,3 +8,5 @@ similiar first 2 clicks to store session + timing rate limiting
   <img width="700" height="500" src="imgs/chimps-7400025.jpg">
 </p>
 
+## technology
+minimal vfaas (mvf) with static functions and no replication in `/mvf/index.js`
