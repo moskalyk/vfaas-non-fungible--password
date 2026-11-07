@@ -3,9 +3,11 @@
             <body>
     <div>
     <canvas id="canvas" width="420px" height="420px"></canvas>
+    <input id='token'></input>
 </div>
 </body>
 <script>
+
     
     fetch('./vfaas', {
         method: 'post',
@@ -13,7 +15,7 @@
             bundleId: '109948', 
             args: [1,1,2, null]
         })
-    }).then(async (r) => console.log(await r.text()))
+    }).then(async (r) => console.log(JSON.parse(await r.text())))
     // Box width
     var bw = 400;
     // Box height
